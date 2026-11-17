@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тест: Швейное ателье (Вариант 1)</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: #f4f6f8; margin: 0; padding: 20px; color: #1a1a1a; line-height: 1.5;
+  }
+  .container { max-width: 780px; margin: 0 auto; }
+  h1 { font-size: 24px; margin: 0 0 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .subtitle { color: #555; margin-bottom: 24px; font-size: 14px; }
+  .block {
+    background: #fff; border-radius: 12px; padding: 20px 24px; margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .block h2 {
+    font-size: 17px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 2px solid #eef1f4;
+  }
+  .question { margin-bottom: 20px; }
+  .question p { margin: 0 0 8px; font-size: 15px; font-weight: 500; }
+  .scale { display: flex; flex-direction: column; gap: 6px; }
+  .opt {
+    display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px;
+    border: 1px solid #d5dbe1; border-radius: 8px; cursor: pointer;
+    font-size: 14px; color: #333; transition: all 0.15s; user-select: none;
+  }
+  .opt:hover { border-color: #2b6cb0; background: #f7fafc; }
+  .opt input { display: none; }
+  .opt .num {
+    flex: 0 0 26px; height: 26px; border-radius: 50%; background: #eef1f4;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; color: #555;
+  }
+  .opt input:checked + .num { background: #2b6cb0; color: #fff; }
+  .opt input:checked ~ .txt { font-weight: 600; }
+  .opt.selected { border-color: #2b6cb0; background: #ebf4ff; }
+  .btn {
+    display: block; width: 100%; padding: 16px; font-size: 16px; font-weight: 600;
+    background: #2b6cb0; color: #fff; border: none; border-radius: 10px;
+    cursor: pointer; margin: 8px 0 24px;
+  }
+  .btn:hover { background: #245a94; }
+  #results { display: none; }
+  .result-block {
+    background: #fff; border-radius: 12px; padding: 18px 22px; margin-bottom: 14px;
+    border-left: 6px solid #ccc; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .result-block h3 { margin: 0 0 6px; font-size: 16px; }
+  .result-block .score { font-size: 14px; color: #555; margin-bottom: 8px; }
+  .result-block .desc { font-size: 14px; }
+  .red { border-left-color: #e53e3e; }
+  .yellow { border-left-color: #d69e2e; }
+  .green { border-left-color: #38a169; }
+  .total {
+    background: #fff; border-radius: 12px; padding: 22px; margin-bottom: 20px;
+    text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .total .num { font-size: 36px; font-weight: 700; }
+  .total .label { color: #555; font-size: 14px; }
+  .badge {
+    display: inline-block; padding: 4px 12px; border-radius: 20px;
+    font-size: 13px; font-weight: 600; color: #fff; margin-top: 8px;
+  }
+  .badge.red { background: #e53e3e; }
+  .badge.yellow { background: #d69e2e; }
+  .badge.green { background: #38a169; }
+  .warning { color: #c53030; font-size: 14px; margin-top: 8px; }
+  .footer-note { text-align: center; color: #888; font-size: 13px; margin: 24px 0; }
+  .feedback {
+    background: #fff; border-radius: 12px; padding: 18px 22px; margin-top: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .feedback h3 { margin-top: 0; }
+  .feedback ol { padding-left: 20px; }
+  .feedback li { margin-bottom: 8px; }
+  .note { font-size: 12px; color: #666; margin-top: 4px; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Тест: Швейное ателье</h1>
+  <p class="subtitle">20 утверждений. Оцените, насколько каждое из них соответствует реальности. Первые 3 вопроса — с полной расшифровкой шкалы, далее она сокращается для скорости.</p>
+
+  <form id="quiz"></form>
+  <button class="btn" id="calcBtn" type="button">Посчитать результат</button>
+
+  <div id="results">
+    <div class="total">
+      <div class="num" id="totalNum">0</div>
+      <div class="label">из 100</div>
+      <div id="totalBadge" class="badge"></div>
+      <div id="totalNote" class="warning"></div>
+    </div>
+    <div id="blockResults"></div>
+    <p class="footer-note">Если 2+ блока в красной зоне (≤12) — это прямой повод для инженерного аудита. Если 1 блок — начните с него точечно. Если всё выше 16 — условная норма.</p>
+    <div class="feedback">
+      <h3>📝 Обратная связь (важно для автора теста!)</h3>
+      <p>Пожалуйста, ответь на 3 вопроса:</p>
+      <ol>
+        <li>Было ли легко понять логику первых трёх вопросов (с пояснениями в скобках)?</li>
+        <li>Когда пояснения убрали (с 4-го вопроса), возник ли дискомфорт или стало быстрее?</li>
+        <li>Казался ли тест слишком длинным или прошёл быстро?</li>
+      </ol>
+      <p class="note">Ответы можно отправить автору теста в мессенджер вместе со скриншотом результата.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const fullScale = [
+  { v: 1, t: "Полностью не соответствует (ничего из этого нет)" },
+  { v: 2, t: "Скорее не соответствует (делается формально или через раз)" },
+  { v: 3, t: "Частично соответствует (что-то работает, что-то нет)" },
+  { v: 4, t: "В основном соответствует (работает, но бывают нюансы)" },
+  { v: 5, t: "Полностью соответствует (всё работает стабильно)" }
+];
+
+const shortScale = [
+  { v: 1, t: "Полностью не соответствует" },
+  { v: 2, t: "Скорее не соответствует" },
+  { v: 3, t: "Частично соответствует" },
+  { v: 4, t: "В основном соответствует" },
+  { v: 5, t: "Полностью соответствует" }
+];
+
+const blocks = [
+  {
+    title: "1. Освещение и цвета",
+    questions: [
+      "Света достаточно для работы с мелкими деталями и подбора цветов тканей без напряжения глаз.",
+      "Индекс цветопередачи (CRI) ламп >80, цвета тканей не искажены при искусственном свете.",
+      "На рабочей зоне нет теней от корпуса/рук и слепящих пятен.",
+      "Каждое рабочее место (швейная машина, оверлок, стол раскроя) обеспечено своим локальным освещением."
+    ],
+    low: "Риск: брак (неправильный подбор цвета), усталость глаз, ошибки кроя. Действие: заменить лампы на CRI>80, добавить локальный свет, убрать тени.",
+    mid: "Свет есть, но неравномерно. Действие: добавить направленные светильники в зоны точной работы и подбора цветов.",
+    high: "Освещение в порядке. Действие: следить за чистотой плафонов и плановой заменой ламп."
+  },
+  {
+    title: "2. Вентиляция и пыль",
+    questions: [
+      "Вентиляция удаляет микропыль от тканей и ворс из воздуха.",
+      "Пар от утюгов и парогенераторов эффективно отводится, не оседает на стенах и потолке.",
+      "Приток свежего воздуха организован (не только открытые окна/двери).",
+      "Воздух в рабочей зоне визуально чистый, нет видимой взвеси ткани к концу смены."
+    ],
+    low: "Риск: здоровье (аллергия, астма), оседание пыли на готовой продукции. Действие: проверить вытяжку, организовать приток, установить локальный отсос у утюгов.",
+    mid: "Часть системы работает, но есть провалы. Действие: начать с чистки вытяжки и проверки притока.",
+    high: "Вентиляция организована. Действие: держать регламент чистки фильтров и проверять раз в полгода."
+  },
+  {
+    title: "3. Эргономика и хранение",
+    questions: [
+      "Высота стола раскроя позволяет работать без наклона спины (не ниже 90 см).",
+      "Ткани хранятся на стеллажах, не на полу, с маркировкой (тип, цвет, остаток).",
+      "Нитки, фурнитура и мелочи организованы в подписанных контейнерах, не валяются в общей куче.",
+      "Перенос тяжёлых рулонов тканей не требует подъёма выше пояса или скручивания спины."
+    ],
+    low: "Риск: боли в спине, путаница в тканях, потери времени на поиск. Действие: поднять стол раскроя, организовать стеллажи с маркировкой, контейнеры для мелочей.",
+    mid: "Часть организации есть, но есть зоны хаоса. Действие: начать с хранения тканей и маркировки.",
+    high: "Эргономика выстроена. Действие: поддерживать систему хранения и обновлять при поступлении новых тканей."
+  },
+  {
+    title: "4. Зонирование и потоки",
+    questions: [
+      "Есть чёткое разделение зон: приёмка клиента, раскрой, шитьё, утюжка, выдача.",
+      "Потоки 'грязного' (приёмка, примерка) и 'чистого' (готовая продукция) не пересекаются.",
+      "Рабочая зона вокруг машин свободна, нет загромождения проходов тканями или коробками.",
+      "Готовые изделия хранятся отдельно от тканей и полуфабрикатов."
+    ],
+    low: "Риск: путаница, потеря заказов, загрязнение готовой продукции. Действие: разметить зоны, разделить потоки, освободить проходы.",
+    mid: "Часть организации есть, но есть зоны хаоса. Действие: начать с разделения зон приёмки и готовой продукции.",
+    high: "Зонирование выстроено. Действие: поддерживать разметку и обновлять при перестановках."
+  },
+  {
+    title: "5. Безопасность и обслуживание",
+    questions: [
+      "Пожарная безопасность обеспечена: нет скопления обрезков тканей, есть огнетушители, утюги выключаются.",
+      "Оборудование (машины, оверлоки, утюги) обслуживается по графику (чистка, смазка, замена игл).",
+      "Поломки и их причины фиксируются, а не просто 'сломалось — починили'.",
+      "Аптечка на видном месте, порядок действий при порезе или ожоге известен."
+    ],
+    low: "Риск: пожар, простои, травмы. Действие: обеспечить огнетушители, ввести чек-лист чистки, журнал поломок, аптечку на виду.",
+    mid: "Оборудование работает, но обслуживание хаотичное. Действие: составить простой регламент чистки и проверки на неделю.",
+    high: "Оборудование обслуживается. Действие: вести учёт причин поломок для экономии бюджета."
+  }
+];
+
+const form = document.getElementById("quiz");
+
+blocks.forEach((block, bIdx) => {
+  const blockDiv = document.createElement("div");
+  blockDiv.className = "block";
+  blockDiv.innerHTML = `<h2>${block.title}</h2>`;
+  block.questions.forEach((q, qIdx) => {
+    const qDiv = document.createElement("div");
+    qDiv.className = "question";
+    const isFull = (bIdx === 0 && qIdx < 3);
+    const scale = isFull ? fullScale : shortScale;
+    
+    qDiv.innerHTML = `<p>${q}</p><div class="scale"></div>`;
+    if (isFull) {
+      qDiv.innerHTML += `<div class="note">⚙️ Полная расшифровка шкалы для настройки на логику теста.</div>`;
+    }
+    
+    const scaleDiv = qDiv.querySelector(".scale");
+    scale.forEach(opt => {
+      const id = `q_${bIdx}_${qIdx}_${opt.v}`;
+      scaleDiv.innerHTML += `
+        <label class="opt" for="${id}">
+          <input type="radio" name="q_${bIdx}_${qIdx}" id="${id}" value="${opt.v}">
+          <span class="num">${opt.v}</span>
+          <span class="txt">${opt.t}</span>
+        </label>
+      `;
+    });
+    blockDiv.appendChild(qDiv);
+  });
+  form.appendChild(blockDiv);
+});
+
+form.addEventListener("change", (e) => {
+  if (e.target.type === "radio") {
+    const name = e.target.name;
+    document.querySelectorAll(`input[name="${name}"]`).forEach(inp => {
+      inp.closest(".opt").classList.toggle("selected", inp.checked);
+    });
+  }
+});
+
+document.getElementById("calcBtn").addEventListener("click", () => {
+  let total = 0, answered = 0;
+  const blockScores = [];
+  blocks.forEach((block, bIdx) => {
+    let sum = 0;
+    block.questions.forEach((_, qIdx) => {
+      const checked = document.querySelector(`input[name="q_${bIdx}_${qIdx}"]:checked`);
+      if (checked) { sum += parseInt(checked.value); answered++; }
+    });
+    blockScores.push(sum);
+    total += sum;
+  });
+
+  if (answered < 20) {
+    alert(`Ответьте на все 20 вопросов. Сейчас отвечено: ${answered}.`);
+    return;
+  }
+
+  const results = document.getElementById("results");
+  results.style.display = "block";
+  document.getElementById("totalNum").textContent = total;
+
+  const totalBadge = document.getElementById("totalBadge");
+  const totalNote = document.getElementById("totalNote");
+  let tClass, tText;
+  if (total <= 48) { tClass = "red"; tText = "Критично"; }
+  else if (total <= 72) { tClass = "yellow"; tText = "Терпимо"; }
+  else { tClass = "green"; tText = "Условно норма"; }
+  totalBadge.className = "badge " + tClass;
+  totalBadge.textContent = tText;
+
+  const lowBlocks = blockScores.filter(s => s <= 12).length;
+  totalNote.textContent = lowBlocks >= 2
+    ? `Блоков в критичной зоне: ${lowBlocks}. Это прямой повод для аудита: есть системные зоны, которые сложно увидеть изнутри.`
+    : lowBlocks > 0 
+      ? `Блоков в критичной зоне: ${lowBlocks}. Начните с них точечно.`
+      : "Критичных блоков нет. Проверьте ещё раз через полгода.";
+
+  const blockResults = document.getElementById("blockResults");
+  blockResults.innerHTML = "";
+  blocks.forEach((block, bIdx) => {
+    const score = blockScores[bIdx];
+    const l = score <= 12 ? "low" : score <= 16 ? "mid" : "high";
+    const div = document.createElement("div");
+    div.className = "result-block " + (l === "low" ? "red" : l === "mid" ? "yellow" : "green");
+    const desc = l === "low" ? block.low : l === "mid" ? block.mid : block.high;
+    const lName = l === "low" ? "Критично" : l === "mid" ? "Терпимо" : "Норма";
+    div.innerHTML = `
+      <h3>${block.title}</h3>
+      <div class="score">${score} из 20 — <strong>${lName}</strong></div>
+      <div class="desc">${desc}</div>
+    `;
+    blockResults.appendChild(div);
+  });
+
+  results.scrollIntoView({ behavior: "smooth" });
+});
+</script>
+</body>
+</html>
