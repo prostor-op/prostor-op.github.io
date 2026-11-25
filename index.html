@@ -5,15 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тесты для производств</title>
     <style>
-        @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(3, 102, 214, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(3, 102, 214, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(3, 102, 214, 0); }
+       a.btn-primary { 
+    background-color: #28a745; 
+    font-weight: bold;
 }
-a.btn-pulse { 
-    animation: pulse 2s infinite; 
-    font-weight: bold; 
-}
+a.btn-primary:hover { background-color: #218838; } 
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
         h1 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         ul { list-style-type: none; padding: 0; }
@@ -27,7 +23,7 @@ a.btn-pulse {
     <h1>База тестов для выявления проблем</h1>
     <p>Выберите нужный тест из списка ниже:</p>
     <ul>
-        <li><a href="samodiagnostika.html" class="btn-pulse">🔥 Тест: Самодиагностика</a></li>
+        <li><a href="samodiagnostika.html" class="btn-primary">⭐ Тест: Самодиагностика (Главный)</a></li>
         
         <!-- Вот эта строчка создаст красную черту -->
         <li class="separator"></li> 
