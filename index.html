@@ -104,12 +104,13 @@
 
     .btn-secondary {
       display: inline-block;
-      padding: 12px 20px;
+      padding: 14px 22px;
       background-color: #0366d6;
       color: #fff;
       text-decoration: none;
       border-radius: 5px;
       font-weight: bold;
+      font-size: 1.05em;
       transition: background-color 0.2s;
     }
     .btn-secondary:hover { background-color: #024c9e; }
@@ -131,11 +132,11 @@
       color: #444;
     }
 
-    /* Портфолио / Кейсы */
+    /* Портфолио / Кейсы (текстовый формат) */
     .case-card {
       border: 1px solid #e2e8f0;
       border-radius: 8px;
-      padding: 18px;
+      padding: 20px;
       margin-bottom: 20px;
     }
     .case-grid {
@@ -146,24 +147,22 @@
     }
     .case-step {
       background: #f8fafc;
-      border: 1px dashed #cbd5e1;
+      border: 1px solid #e2e8f0;
       border-radius: 6px;
-      padding: 8px;
-      text-align: center;
+      padding: 12px;
     }
-    .case-step img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 4px;
+    .case-step-title {
       display: block;
-      margin-bottom: 6px;
-      background: #e2e8f0;
-    }
-    .case-step span {
       font-size: 0.85em;
       font-weight: bold;
-      color: #2c3e50;
+      color: #0366d6;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .case-step p {
+      margin: 0;
+      font-size: 0.92em;
+      color: #444;
     }
     .case-result {
       background: #eafaf1;
@@ -176,22 +175,11 @@
 
     /* Чек-лист */
     .checklist-box {
-      display: flex;
-      gap: 18px;
-      align-items: center;
       background: #f8fafc;
       border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 18px;
-    }
-    .checklist-box img {
-      width: 160px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 4px;
-      border: 1px solid #cbd5e1;
-      flex-shrink: 0;
-      background: #e2e8f0;
+      border-left: 4px solid #2c3e50;
+      border-radius: 0 8px 8px 0;
+      padding: 18px 20px;
     }
 
     /* Контакты */
@@ -203,11 +191,11 @@
       align-items: center;
     }
     .phone-link {
-      font-size: 1.1em;
+      font-size: 1.05em;
       font-weight: bold;
       color: #2c3e50;
       text-decoration: none;
-      padding: 10px 16px;
+      padding: 13px 18px;
       border: 1px solid #cbd5e1;
       border-radius: 5px;
     }
@@ -216,8 +204,6 @@
     /* Адаптация под телефон */
     @media (max-width: 640px) {
       .case-grid { grid-template-columns: 1fr; }
-      .checklist-box { flex-direction: column; align-items: flex-start; }
-      .checklist-box img { width: 100%; height: 180px; }
       nav a { margin-left: 12px; }
     }
   </style>
@@ -228,7 +214,7 @@
   <header>
     <a href="index.html" class="logo">Инженерный аудит цеха</a>
     <nav>
-      <a href="#cases">Примеры работ</a>
+      <a href="#cases">Подход и кейсы</a>
       <a href="tests.html">База тестов</a>
       <a href="#contacts">Контакты</a>
     </nav>
@@ -276,25 +262,25 @@
     </div>
   </section>
 
-  <!-- Блок 3: Доказательства (Портфолио в миниатюре) -->
+  <!-- Блок 3: Доказательства (Формат работы и чек-лист) -->
   <section id="cases">
-    <h2>Примеры инженерных решений</h2>
+    <h2>Как выглядит решение на практике</h2>
 
-    <!-- Кейс 1 -->
+    <!-- Пример разбора -->
     <div class="case-card">
-      <h3>Кейс 1: Организация участка раскроя и сборки</h3>
+      <h3>Пример: Организация участка раскроя и сборки</h3>
       <div class="case-grid">
         <div class="case-step">
-          <img src="img/case1-bylo.jpg" alt="Фото Было">
-          <span>1. Было (хаос и потери)</span>
+          <span class="case-step-title">1. Было</span>
+          <p>Хаотичное хранение заготовок, пересечение потоков, лишняя ходьба за инструментом и обрезки в отход.</p>
         </div>
         <div class="case-step">
-          <img src="img/case1-shema.jpg" alt="Скриншот схемы и расчета">
-          <span>2. Схема и расчет</span>
+          <span class="case-step-title">2. Схема и расчет</span>
+          <p>Замер траекторий, перекомпоновка постов и карта раскроя оснастки под стандартный лист.</p>
         </div>
         <div class="case-step">
-          <img src="img/case1-stanet.jpg" alt="Фото Станет">
-          <span>3. Станет (реальный узел)</span>
+          <span class="case-step-title">3. Стало</span>
+          <p>Рабочий узел и оснастка под рукой, понятная зона хранения и настроенный отвод стружки/пыли.</p>
         </div>
       </div>
       <div class="case-result">
@@ -304,14 +290,11 @@
 
     <!-- Диагностический чек-лист -->
     <div class="checklist-box">
-      <img src="img/checklist.jpg" alt="Диагностический чек-лист">
-      <div>
-        <h3>Системный подход: Диагностический чек-лист</h3>
-        <p style="margin: 0; font-size: 0.95em;">
-          На объекте проверяю производство по инженерному чек-листу: потоки сырья, эргономику постов, 
-          аспирацию и хранение оснастки. Вы получаете не общие советы, а список конкретных узлов под доработку.
-        </p>
-      </div>
+      <h3>Системный подход: Диагностический чек-лист</h3>
+      <p style="margin: 0; font-size: 0.95em;">
+        На объекте проверяю производство по инженерному чек-листу: потоки сырья, эргономику постов, 
+        аспирацию и хранение оснастки. Вы получаете не общие советы, а список конкретных узлов под доработку.
+      </p>
     </div>
   </section>
 
@@ -323,11 +306,11 @@
       даю карты раскроя и рабочие чертежи под стандартные листовые и профильные материалы.
     </p>
     <div class="contact-links">
-      <a href="https://t.me" target="_blank" class="btn-primary">Написать в Telegram</a>
-      <a href="tel:+79000000000" class="phone-link">+7 (900) 000-00-00</a>
+      <a href="https://max.ru" target="_blank" rel="noopener" class="btn-primary">Написать в MAX</a>
+      <a href="https://t.me" target="_blank" rel="noopener" class="btn-secondary">Написать в Telegram</a>
+      <a href="tel:+79604896738" class="phone-link">+7 (960) 489-67-38</a>
     </div>
   </section>
 
 </body>
 </html>
-
