@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Инженерная оптимизация малых производств (10–50 м²)</title>
+  <title>Инженерный аудит и оптимизация малых производств (10–50 м²)</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -36,15 +36,15 @@
     nav a {
       color: #0366d6;
       text-decoration: none;
-      margin-left: 18px;
+      margin-left: 16px;
       font-size: 0.95em;
     }
     nav a:hover { text-decoration: underline; }
 
     /* Блоки и заголовки */
     section {
-      margin-bottom: 45px;
-      padding-bottom: 35px;
+      margin-bottom: 42px;
+      padding-bottom: 32px;
       border-bottom: 2px solid #eee;
     }
     section:last-of-type { border-bottom: none; }
@@ -87,7 +87,7 @@
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       padding: 22px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .btn-primary {
       display: inline-block;
@@ -104,13 +104,13 @@
 
     .btn-secondary {
       display: inline-block;
-      padding: 14px 22px;
+      padding: 13px 20px;
       background-color: #0366d6;
       color: #fff;
       text-decoration: none;
       border-radius: 5px;
       font-weight: bold;
-      font-size: 1.05em;
+      font-size: 1.02em;
       transition: background-color 0.2s;
     }
     .btn-secondary:hover { background-color: #024c9e; }
@@ -126,13 +126,63 @@
     }
     .sub-tests a:hover { text-decoration: underline; }
 
-    .audit-note {
-      margin: 10px 0 15px 0;
+    /* Карточки услуг (2 колонки) */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .service-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .service-price {
+      display: inline-block;
+      background: #eafaf1;
+      color: #1e7e34;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 4px;
       font-size: 0.95em;
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      margin: 0 0 14px 0;
+      font-size: 0.94em;
       color: #444;
     }
+    .service-artifact {
+      font-size: 0.88em;
+      color: #2c3e50;
+      background: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 4px;
+      border-left: 3px solid #0366d6;
+    }
 
-    /* Портфолио / Кейсы (текстовый формат) */
+    /* Границы услуги */
+    .boundaries-box {
+      background: #fff5f5;
+      border: 1px solid #fed7d7;
+      border-left: 4px solid #e53e3e;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      font-size: 0.92em;
+    }
+    .boundaries-box ul {
+      margin: 8px 0 0 0;
+      padding-left: 20px;
+      color: #444;
+    }
+    .boundaries-box li { margin-bottom: 5px; }
+
+    /* Портфолио / Кейсы */
     .case-card {
       border: 1px solid #e2e8f0;
       border-radius: 8px;
@@ -195,16 +245,16 @@
       font-weight: bold;
       color: #2c3e50;
       text-decoration: none;
-      padding: 13px 18px;
+      padding: 12px 18px;
       border: 1px solid #cbd5e1;
       border-radius: 5px;
     }
     .phone-link:hover { background: #f8fafc; }
 
     /* Адаптация под телефон */
-    @media (max-width: 640px) {
-      .case-grid { grid-template-columns: 1fr; }
-      nav a { margin-left: 12px; }
+    @media (max-width: 680px) {
+      .services-grid, .case-grid { grid-template-columns: 1fr; }
+      nav a { margin-left: 10px; font-size: 0.9em; }
     }
   </style>
 </head>
@@ -214,6 +264,7 @@
   <header>
     <a href="index.html" class="logo">Инженерный аудит цеха</a>
     <nav>
+      <a href="#services">Услуги и цены</a>
       <a href="#cases">Подход и кейсы</a>
       <a href="tests.html">База тестов</a>
       <a href="#contacts">Контакты</a>
@@ -223,50 +274,86 @@
   <!-- Блок 1: Позиционирование (Оффер) -->
   <section id="offer">
     <div class="tags">
-      <span class="tag">10–50 м²</span>
-      <span class="tag">Чертежи и карты раскроя</span>
+      <span class="tag">Краснодар и пригород</span>
+      <span class="tag">Цеха 10–50 м²</span>
       <span class="tag">Без управленческой воды</span>
     </div>
     <h1>Инженерная оптимизация малых производств (10–50 м²)</h1>
     <p>
-      Убираю лишние движения, проектирую оснастку и рабочие места под стандартные материалы, 
-      настраиваю пылеудаление. Без управленческой воды — только факты, замеры и чертежи.
+      Нахожу неочевидные потери в логистике, вентиляции, освещении и эргономике рабочих мест. 
+      Убираю лишние движения, даю решения под стандартные материалы без дорогой подгонки. 
+      Только факты, замеры и понятный план действий.
     </p>
   </section>
 
   <!-- Блок 2: Главный призыв к действию (Воронка) -->
   <section id="funnel">
-    <h2>С чего начать</h2>
-
-    <!-- Основной шаг: Самодиагностика -->
+    <h2>Шаг 1: Бесплатная самодиагностика</h2>
     <div class="cta-box">
       <a href="samodiagnostika.html" class="btn-primary">
-        Пройти бесплатную самодиагностику цеха (2 минуты)
+        Пройти самодиагностику цеха (2 минуты)
       </a>
       <div class="sub-tests">
-        Или выберите профильный тест под вашу нишу: 
+        25 вопросов по 5 блокам (вентиляция, свет, потоки, оборудование, безопасность).<br>
+        Нишевые тесты: 
         <a href="shveynoe-atele.html">Швейное ателье</a> • 
         <a href="maslo-iz-semechek.html">Цех по производству масла</a> • 
         <a href="tests.html">Все тесты</a>
       </div>
     </div>
+  </section>
 
-    <!-- Вторичный шаг: Экспресс-аудит -->
-    <div class="cta-box">
-      <h3>Нужен разбор на месте? Закажите Экспресс-аудит на объекте</h3>
-      <p class="audit-note">
-        1,5 часа в вашем цеху: замеры логистики, поиск узких мест и потерь времени, 
-        по итогам — конкретный PDF-отчет. <strong>Стоимость аудита полностью вычитается из следующего этапа работ.</strong>
-      </p>
-      <a href="#contacts" class="btn-secondary">Заказать Экспресс-аудит</a>
+  <!-- Блок 3: Форматы выездного аудита и цены -->
+  <section id="services">
+    <h2>Шаг 2: Выездной аудит и стоимость (Краснодар)</h2>
+    <div class="services-grid">
+
+      <!-- Услуга 1 -->
+      <div class="service-card">
+        <div>
+          <h3>Экспресс-аудит «узкие места»</h3>
+          <span class="service-price">3 500 ₽ (вычитается из след. этапа)</span>
+          <p>
+            Выезд на объект (1,5–2 часа). Визуальный поиск 1–2 самых «дорогих» проблем: 
+            явные лишние движения, ошибки эргономики, заторы в логистике.
+          </p>
+        </div>
+        <div class="service-artifact">
+          <strong>На выходе:</strong> разбор на месте + PDF-резюме с 2–3 шагами для быстрого внедрения (в течение 24 часов).
+        </div>
+      </div>
+
+      <!-- Услуга 2 -->
+      <div class="service-card">
+        <div>
+          <h3>Глубокий аудит микропространств (10–30 м²)</h3>
+          <span class="service-price">от 9 000 ₽</span>
+          <p>
+            Детальный разбор процессов: микро-хронометраж операций, карта лишних перемещений («диаграмма спагетти»), 
+            оценка освещения, температуры и пылеудаления.
+          </p>
+        </div>
+        <div class="service-artifact">
+          <strong>На выходе:</strong> схема «Как есть» с фиксацией потерь + схема малозатратной перестановки под стандартные материалы.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Границы работы -->
+    <div class="boundaries-box">
+      <strong>Принципиальные границы работы:</strong>
+      <ul>
+        <li>Не рисую «красивые» 3D-интерьеры и дизайн-проекты — работаю только с инженерной логистикой и эргономикой.</li>
+        <li>Не проектирую «идеальные» концепты под миллионные бюджеты — предлагаю только то, что можно внедрить быстро и с минимальными вложениями.</li>
+      </ul>
     </div>
   </section>
 
-  <!-- Блок 3: Доказательства (Формат работы и чек-лист) -->
+  <!-- Блок 4: Доказательства (Формат работы и чек-лист) -->
   <section id="cases">
     <h2>Как выглядит решение на практике</h2>
 
-    <!-- Пример разбора -->
     <div class="case-card">
       <h3>Пример: Организация участка раскроя и сборки</h3>
       <div class="case-grid">
@@ -275,42 +362,6 @@
           <p>Хаотичное хранение заготовок, пересечение потоков, лишняя ходьба за инструментом и обрезки в отход.</p>
         </div>
         <div class="case-step">
-          <span class="case-step-title">2. Схема и расчет</span>
-          <p>Замер траекторий, перекомпоновка постов и карта раскроя оснастки под стандартный лист.</p>
+          <span class="case-step-title">2. Расчет</span>
+          <p>Замер траекторий перемещения мастера, перекомпоновка постов и оптимизация под стандартный лист.</p>
         </div>
-        <div class="case-step">
-          <span class="case-step-title">3. Стало</span>
-          <p>Рабочий узел и оснастка под рукой, понятная зона хранения и настроенный отвод стружки/пыли.</p>
-        </div>
-      </div>
-      <div class="case-result">
-        Результат: Сэкономили 15% листа при раскрое и сократили лишние перемещения мастера на 40%.
-      </div>
-    </div>
-
-    <!-- Диагностический чек-лист -->
-    <div class="checklist-box">
-      <h3>Системный подход: Диагностический чек-лист</h3>
-      <p style="margin: 0; font-size: 0.95em;">
-        На объекте проверяю производство по инженерному чек-листу: потоки сырья, эргономику постов, 
-        аспирацию и хранение оснастки. Вы получаете не общие советы, а список конкретных узлов под доработку.
-      </p>
-    </div>
-  </section>
-
-  <!-- Блок 4: Контакты и принцип работы -->
-  <section id="contacts">
-    <h2>Принцип работы и контакты</h2>
-    <p>
-      Работаю по факту выявленных инженерных проблем. Не рисую красивые интерьеры — 
-      даю карты раскроя и рабочие чертежи под стандартные листовые и профильные материалы.
-    </p>
-    <div class="contact-links">
-      <a href="https://max.ru" target="_blank" rel="noopener" class="btn-primary">Написать в MAX</a>
-      <a href="https://t.me" target="_blank" rel="noopener" class="btn-secondary">Написать в Telegram</a>
-      <a href="tel:+79604896738" class="phone-link">+7 (960) 489-67-38</a>
-    </div>
-  </section>
-
-</body>
-</html>
